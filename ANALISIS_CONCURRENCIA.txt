@@ -1,0 +1,5 @@
+El error que se presencia en esta API es que al manejar procesos concurrentes esta puede entrar en un caso de
+ambiguedad en el momento en el que dos o mas personas realizen distintas acciones sobre el mismo objeto, esto
+ocasiona distintos errores en el momento de verificar el estado del objeto, tal como puede ser en este caso la
+orden o la misma mesa, en este caso lo mejor es sincronizar cada proceso para que acceda de forma ordenada a las
+mesas y a cada objeto que pueda presentar este inconveniente.
