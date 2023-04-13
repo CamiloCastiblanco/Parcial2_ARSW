@@ -44,7 +44,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.reflect.TypeToken;
 
-
 /**
  *
  * @author hcadavid
