@@ -44,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.reflect.TypeToken;
 
+
 /**
  *
  * @author hcadavid
@@ -57,8 +58,22 @@ public class OrdersAPIController {
     public OrdersAPIController(RestaurantOrderServicesStub restaurantStub){
         this.restaurantStub = restaurantStub;
     }
+    @RequestMapping(method = RequestMethod.PUT, path = "/{idmesa}")
+    public ResponseEntity<?> updateOrder(@PathVariable String idmesa, @RequestBody String nOrder){
+        JSONObject obj =  new JSONObject(nOrder);
+        Iterator<?> keys = obj.keys();
+        while(keys.hasNext()){
+            String key = (String) keys.next();
+            try {
+                restaurantStub.getTableOrder(Integer.parseInt(idmesa)).addDish(key, obj.getInt(key));
+            } catch (Exception ex) {
+                Logger.getLogger(OrdersAPIController.class.getName()).log(Level.SEVERE, null, ex);
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
-
+    }
     @RequestMapping(method = RequestMethod.DELETE, path = "/{idmesa}")
     public ResponseEntity<?> deleteOrder(@PathVariable String idmesa){
         try {
@@ -81,8 +96,26 @@ public class OrdersAPIController {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetRecursoXX(){
+        try {
+            Set<Integer> keys =  restaurantStub.getTablesWithOrders();
+            Map<String, Integer> amounts =  new ConcurrentHashMap();
+            for(Integer in: keys){
+                Order o = restaurantStub.getTableOrder(in);
+                amounts.putAll(o.getOrderAmountsMap());
+            }
+            String json = new ObjectMapper().writeValueAsString(amounts);
+            return  new ResponseEntity<>(json,HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(OrdersAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 
-    
+
+
+
 }

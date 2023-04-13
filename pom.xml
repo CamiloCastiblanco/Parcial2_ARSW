@@ -7,7 +7,7 @@
 	<artifactId>restapidemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
+	
 	<name>RESTAURANT_API</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -26,6 +26,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -39,7 +44,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.3.3.RELEASE</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>
